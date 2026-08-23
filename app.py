@@ -14,7 +14,7 @@ if st.button("Solve"):
     else:
         url = "https://api.groq.com/openai/v1/chat/completions"
         headers = {
-            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
+            "Authorization": GROQ_API_KEY = "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",
             "Content-Type": "application/json"
         }
         data = {
