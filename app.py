@@ -1,5 +1,5 @@
 import streamlit as st
-import requests
+import google.generativeai as genai
 
 st.set_page_config(page_title="Class 1-12 Math Solver AI", page_icon="🧮")
 st.title("🧮 Class 1-12 Math Solver AI")
@@ -11,29 +11,17 @@ if st.button("Solve"):
     if question.strip() == "":
         st.warning("कृपया पहले कोई सवाल लिखें!")
     else:
-        url = "https://api.groq.com/openai/v1/chat/completions"
-        headers = {
-            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
-            "Content-Type": "application/json"
-        }
-        data = {
-            "model": "llama-3.3-70b-versatile",
-            "messages": [
-                {"role": "system", "content": "You are a K-12 math solver. Solve class 1 to 12 math problems step by step in clear Hinglish/Hindi."},
-                {"role": "user", "content": question}
-            ]
-        }
-        
         try:
+            api_key = st.secrets["GEMINI_API_KEY"]
+            genai.configure(api_key=api_key)
+            
             with st.spinner("सवाल हल किया जा रहा है..."):
-                response = requests.post(url, headers=headers, json=data)
-                res_data = response.json()
+                model = genai.GenerativeModel('gemini-1.5-flash')
+                prompt = f"You are a K-12 math solver. Solve class 1 to 12 math problems step by step in clear Hinglish/Hindi. Question: {question}"
+                response = model.generate_content(prompt)
                 
-                if response.status_code == 200:
-                    answer = res_data["choices"][0]["message"]["content"]
-                    st.success("### समाधान (Solution):")
-                    st.write(answer)
-                else:
-                    st.error("API में कुछ समस्या है, Streamlit Secrets में Key चेक करें।")
+                st.success("### समाधान (Solution):")
+                st.write(response.text)
+                
         except Exception as e:
-            st.error(f"एरर आया: {e}")
+            st.error(f"API में समस्या है, Secrets में GEMINI_API_KEY चेक करें! एरर: {e}")
