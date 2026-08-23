@@ -2,7 +2,6 @@ import streamlit as st
 import requests
 
 st.set_page_config(page_title="Class 1-12 Math Solver AI", page_icon="🧮")
-
 st.title("🧮 Class 1-12 Math Solver AI")
 
 pass_code = st.text_input("Enter Pro Pass Code (Leave blank for Free Trial):", type="password")
@@ -13,10 +12,9 @@ if st.button("Solve"):
         st.warning("कृपया पहले कोई सवाल लिखें!")
     else:
         url = "https://api.groq.com/openai/v1/chat/completions"
-       headers = {
+        headers = {
             "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
             "Content-Type": "application/json"
-        }
         }
         data = {
             "model": "llama-3.3-70b-versatile",
