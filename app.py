@@ -13,9 +13,10 @@ if st.button("Solve"):
         st.warning("कृपया पहले कोई सवाल लिखें!")
     else:
         url = "https://api.groq.com/openai/v1/chat/completions"
-        headers = {
-            "Authorization": GROQ_API_KEY = "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",
+       headers = {
+            "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}",
             "Content-Type": "application/json"
+        }
         }
         data = {
             "model": "llama-3.3-70b-versatile",
