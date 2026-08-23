@@ -16,7 +16,8 @@ if st.button("Solve"):
             genai.configure(api_key=api_key)
             
             with st.spinner("सवाल हल किया जा रहा है..."):
-                model = genai.GenerativeModel('gemini-pro')
+                # यहाँ हमने मॉडल का नाम बदलकर 'gemini-1.5-pro' या 'gemini-pro' कर दिया है जो ऐसी Keys को सपोर्ट करता है
+                model = genai.GenerativeModel('gemini-1.5-pro')
                 prompt = f"You are a K-12 math solver. Solve class 1 to 12 math problems step by step in clear Hinglish/Hindi. Question: {question}"
                 response = model.generate_content(prompt)
                 
