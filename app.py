@@ -13,7 +13,7 @@ if st.button("Solve"):
     if pass_code == "MYPRO123" or pass_code == "":  
         if question:
             headers = {
-                "Authorization": "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", 
+                "Authorization": f"Bearer {st.secrets['GROQ_API_KEY']}", 
                 "Content-Type": "application/json"
             }
             data = {
